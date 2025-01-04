@@ -10,18 +10,24 @@ int main()
 
 	srand(time(0));
 
-	double *noiseSinus = malloc(size * sizeof(double));
+	double *noiseSinusOne = malloc(size * sizeof(double));
 
-	FillArrNoiseSinus(size, originalSinus, noiseSinus);
-
+	FillArrNoiseSinusOne(size, originalSinus, noiseSinusOne);
+//
 	PrintConsole(size, originalSinus, "Base SinusArr");
-	PrintConsole(size, noiseSinus, "Noise SinusArr");
+	PrintConsole(size, noiseSinusOne, "Noise SinusArr x1 Measur");
 
 	PrintConsoleGraph(size, originalSinus,"Base SinusArr");
-	PrintConsoleGraph(size, noiseSinus,"Noise SinusArr");
+	PrintConsoleGraph(size, noiseSinusOne,"Noise SinusArr x1 Measur");
 
 	free(originalSinus);
-	free(noiseSinus);
+	free(noiseSinusOne);
+	//
+	double **noiseSinus=Creat2Arr(size, MAX_Measurements);
+	FillArrNoiseSinus(size, MAX_Measurements,originalSinus,noiseSinus);
+
+	PrintConsole2Arr(size, MAX_Measurements, noiseSinus, "Noise SinusArr x10 Measur");
+	PrintConsoleGraph2(size, MAX_Measurements, noiseSinus, "Noise SinusArr x10 Measur");
 	return 0;
 }
 
@@ -40,6 +46,18 @@ int WriteSize()
 	return tempSize;
 }
 
+double ** Creat2Arr(int size, int measurement)
+{
+
+		double **tempArr = malloc(measurement * sizeof(double));
+
+		for (int i = 0; i < measurement; i++)
+		{
+			tempArr[i] = malloc(size * sizeof(int));
+		}
+		return tempArr;
+}
+
 void FillArrSinus(int size, double *arr)
 {
 	double temp;
@@ -50,13 +68,20 @@ void FillArrSinus(int size, double *arr)
 	}
 }
 
-void FillArrNoiseSinus(int size, double *arr, double *noiseArr)
+void FillArrNoiseSinusOne(int size, double *arr, double *noiseArrOne)
 {
 	double noiseTemp;
 	for (int i = 0; i < size; i++)
 	{
 		noiseTemp = (1 + rand() % (10 - 1)) * 0.02;
-		noiseArr[i] = arr[i] + noiseTemp;
+		noiseArrOne[i] = arr[i] + noiseTemp;
 	}
 }
 
+void FillArrNoiseSinus(int size, int measurement,double *arr,double **noiseArr)
+{
+	for (int i = 0; i < MAX_Measurements; i++)
+		{
+			FillArrNoiseSinusOne(size, arr, noiseArr[i]);
+		}
+}
