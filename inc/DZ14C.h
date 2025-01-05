@@ -12,13 +12,10 @@
 #define MAX_Measurements 10
 
 int WriteSize();
-void FillArrSinus(int size, double *arr);
-void FillArrNoiseSinusOne(int size, double *arr, double *noiseArr);
-double ** Creat2Arr(int size, int measurement);
-void Free2Arr(double **noiseArr, int measurement);
-void FillArrNoiseSinus(int size, int measurement,double *arr,double **noiseArr);
-void FillArrFilterSinus(int size, int measurement, double *arr,	double **noiseArr);
-double Median(double *arr, int count);
-double* SequenceData(double *arr, int count);
+void FillArrSinus(int size, float *arr);
+void FillArrNoiseSinusOne(int size, float *arr, float *noiseArr);
+void Free2Arr(int measurement, float (*noiseArr)[measurement]);
+void FillArrNoiseSinus(int size, int measurement, float *arr, float noiseArr[measurement][size]);
+void FillArrFilterSinus(int size, int measurement, float *arr, float noiseArr[measurement][size]);
 
 #endif

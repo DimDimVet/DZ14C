@@ -7,9 +7,8 @@
 #ifndef Console_Funcion_H_
 #define Console_Funcion_H_
 
-void PrintConsole(int size, double *arr, char *str);
-void PrintConsoleGraph(int size, double *arr, char *strName);
-void PrintConsole2Arr(int size, int measurement, double **arr, char *str);
-void PrintConsoleGraph2(int size, int measurement, double **arr, char *strName);
+void PrintConsole(int size, float *arr, char *str);
+void PrintConsoleGraph(int size, float *arr, char *strName);
+void PrintConsole2Arr(int size, int measurement, float arr[measurement][size], char *str);
 
 #endif

@@ -1,117 +1,87 @@
 #include "ConsoleFuncion.h"
 
-void PrintConsole(int size, double *arr, char *str)
+void PrintConsole(int size, float *arr, char *str)
 {
-	if (str == NULL)
-	{
-		str = "NoStr";
-	}
-	printf("\nArr: %s\n", str);
+    if (str == NULL)
+    {
+        str = "NoStr";
+    }
+    printf("\nArr: %s\n", str);
 
-	for (int i = 0; i < size; i++)
-	{
-		printf("%f\n", arr[i]);
-	}
+    for (int i = 0; i < size; i++)
+    {
+        printf("%f\n", arr[i]);
+    }
 }
 
-void PrintConsole2Arr(int size, int measurement, double **arr, char *str)
+void PrintConsole2Arr(int size, int measurement, float arr[measurement][size], char *str)
 {
-	if (str == NULL)
-	{
-		str = "NoStr";
-	}
-	printf("\nArr: %s\n", str);
+    if (str == NULL)
+    {
+        str = "NoStr";
+    }
+    printf("\nArr: %s\n", str);
 
-	for (int rows = 0; rows < measurement; rows++)
-	{
-		for (int cols = 0; cols < size; cols++)
-		{
-			printf("[%f]", arr[rows][cols]);
-		}
-		printf("\n\n");
-	}
+    for (int rows = 0; rows < measurement; rows++)
+    {
+        for (int cols = 0; cols < size; cols++)
+        {
+            printf("[%f]", arr[rows][cols]);
+        }
+        printf("\n\n");
+    }
 }
 
-void PrintConsoleGraph(int size, double *arr, char *strName)
+void PrintConsoleGraph(int size, float *arr, char *strName)
 {
-	printf("\n");
-	if (strName == NULL)
-	{
-		strName = "NoName";
-	}
-	printf(" %s\n", strName);
+    printf("\n");
+    if (strName == NULL)
+    {
+        strName = "NoName";
+    }
+    printf(" %s\n", strName);
 
-	bool isX = true, isY = true;
-	int t = size / 2;
+    bool isX = true, isY = true;
+    int t = size / 2;
 
-	for (int y = HEIGHT; y >= -HEIGHT; y--)
-	{
-		for (int x = 0; x <= size; x++)
-		{
-			if (y == (int) (arr[x] * HEIGHT))
-			{
-				printf("+");
-			}
-			else if (y == 0)
-			{
-				if (isX) // X
-				{
-					printf("X");
-					isX = !isX;
-				}
-				else
-				{
-					printf("-");
-				}
-			}
-			else if (x == t) // Y
-			{
-				if (isY)
-				{
-					printf("Y");
-					isY = !isY;
-				}
-				else
-				{
-					printf("|");
-				}
-			}
-			else
-			{
-				printf(" ");
-			}
-		}
-		printf("\n");
-	}
-}
-
-void PrintConsoleGraph2(int size, int measurement, double **arr, char *strName)
-{
-	printf("\n");
-	if (strName == NULL)
-	{
-		strName = "NoName";
-	}
-	printf(" %s\n", strName);
-
-	for (int y = HEIGHT; y >= -HEIGHT; y--)
-	{
-		for (int x = 0; x <= size; x++)
-		{
-			for (int x1 = 0; x1 < measurement; x1++)
-			{
-				if (y == (int) (arr[x1][x] * HEIGHT))
-				{
-					printf("+");
-				}
-				else
-				{
-					printf(" ");
-
-				}
-			}
-		}
-		printf("\n");
-	}
+    for (int y = HEIGHT; y >= -HEIGHT; y--)
+    {
+        for (int x = 0; x <= size; x++)
+        {
+            if (y == (int)(arr[x] * HEIGHT))
+            {
+                printf("+");
+            }
+            else if (y == 0)
+            {
+                if (isX) // X
+                {
+                    printf("X");
+                    isX = !isX;
+                }
+                else
+                {
+                    printf("-");
+                }
+            }
+            else if (x == t) // Y
+            {
+                if (isY)
+                {
+                    printf("Y");
+                    isY = !isY;
+                }
+                else
+                {
+                    printf("|");
+                }
+            }
+            else
+            {
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
 }
 
