@@ -2,38 +2,49 @@
 
 int main()
 {
-    int size = WriteSize();//получим длинну одном.массива
+    int size = WriteSize(); // получим длинну одном.массива
 
-    float *originalSinus = malloc(size * sizeof(float));//зададим через указатель массив расчетный
+    float *originalSinus = malloc(size * sizeof(float)); // зададим через указатель массив расчетный
 
-    FillArrSinus(size, originalSinus);//наполним массив расчетно
+    FillArrSinus(size, originalSinus); // наполним массив расчетно
 
     srand(time(0));
 
-    float *noiseSinusOne = malloc(size * sizeof(float));//зададим через указатель массив рандомный
+    float *noiseSinusOne = malloc(size * sizeof(float)); // зададим через указатель массив рандомный
 
-    FillArrNoiseSinusOne(size, originalSinus, noiseSinusOne);//наполним массив рандомно относительно расчетного
+    FillArrNoiseSinusOne(size, originalSinus, noiseSinusOne); // наполним массив рандомно относительно расчетного
 
-    PrintConsole(size, originalSinus, "Base SinusArr");//покажем
-    PrintConsole(size, noiseSinusOne, "Noise SinusArr x1 Measur");//покажем
+    FILE *tmpFile=OpenFile("TestFile1.txt");// откроем поток к файлу
 
-    PrintConsoleGraph(size, originalSinus, "Base SinusArr");//покажем
-    PrintConsoleGraph(size, noiseSinusOne, "Noise SinusArr x1 Measur");//покажем
+    PrintConsole(size, originalSinus, "Base SinusArr"); // покажем
+    PrintTxtFile(tmpFile, size, originalSinus, "Base SinusArr");// пишем в файл
+    PrintConsole(size, noiseSinusOne, "Noise SinusArr x1 Measur"); // покажем
+    PrintTxtFile(tmpFile, size, noiseSinusOne, "Noise SinusArr x1 Measur");// пишем в файл
 
-    float noiseSinus[MAX_Measurements][size];//объявим двумерный массив
+    PrintConsoleGraph(size, originalSinus, "Base SinusArr");            // покажем
+    PrintGrafFile(tmpFile, size, originalSinus, "Base SinusArr");// пишем в файл
+    PrintConsoleGraph(size, noiseSinusOne, "Noise SinusArr x1 Measur"); // покажем
+    PrintGrafFile(tmpFile, size, noiseSinusOne, "Noise SinusArr x1 Measur");// пишем в файл
 
-    FillArrNoiseSinus(size, MAX_Measurements, originalSinus, noiseSinus);//наполним двумерный массив (количество "измерений") рандомно относительно расчетного
+    float noiseSinus[MAX_Measurements][size]; // объявим двумерный массив
 
-    PrintConsole2Arr(size, MAX_Measurements, noiseSinus, "Noise SinusArr x10 Measur");//покажем
+    FillArrNoiseSinus(size, MAX_Measurements, originalSinus, noiseSinus); // наполним двумерный массив (количество "измерений") рандомно относительно расчетного
 
-    float *filterSinus = malloc(size * sizeof(float));//зададим через указатель массив отфильтрованого
+    PrintConsole2Arr(size, MAX_Measurements, noiseSinus, "Noise SinusArr x10 Measur"); // покажем
+    PrintTxtFile2Arr(tmpFile,size, MAX_Measurements, noiseSinus, "Noise SinusArr x10 Measur");
 
-    FillArrFilterSinus(size, MAX_Measurements, filterSinus, noiseSinus);//наполним массив по средней относительно двумерный массива
+    float *filterSinus = malloc(size * sizeof(float)); // зададим через указатель массив отфильтрованого
 
-    PrintConsole(size, filterSinus, "Filter SinusArr");//покажем
-    PrintConsoleGraph(size, filterSinus, "Filter SinusArr");//покажем
+    FillArrFilterSinus(size, MAX_Measurements, filterSinus, noiseSinus); // наполним массив по средней относительно двумерный массива
 
-    //чистим
+    PrintConsole(size, filterSinus, "Filter SinusArr");      // покажем
+    PrintTxtFile(tmpFile, size, filterSinus, "Filter SinusArr");// пишем в файл
+    PrintConsoleGraph(size, filterSinus, "Filter SinusArr"); // покажем
+    PrintGrafFile(tmpFile, size, filterSinus, "Filter SinusArr");// пишем в файл
+
+    CloseFile("TestFile1.txt",tmpFile);// закроем поток к файлу
+
+    // чистим
     free(originalSinus);
     free(noiseSinusOne);
     Free2Arr(MAX_Measurements, noiseSinus);
